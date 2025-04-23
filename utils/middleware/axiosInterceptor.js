@@ -1,3 +1,4 @@
+import { BASE_URL } from '@/api/urls';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
@@ -26,7 +27,7 @@ api.interceptors.response.use(
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
       try {
-        const response = await axios.post('http://localhost:5000/api/auth/refresh-token', {}, {
+        const response = await axios.post(`${BASE_URL}/api/auth/refresh-token`, {}, {
           withCredentials: true
         });
         const { accessToken } = response.data;

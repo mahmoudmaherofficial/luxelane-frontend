@@ -1,5 +1,6 @@
+// api/auth.js
 import Cookies from 'js-cookie';
-import api from './axiosInterceptor';
+import api from '../utils/middleware/axiosInterceptor';
 
 export const login = async (data) => {
   console.log('Login request data:', data);

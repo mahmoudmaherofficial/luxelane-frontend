@@ -1,4 +1,4 @@
-import api from "./axiosInterceptor";
+import api from "../utils/middleware/axiosInterceptor";
 
 export const getAllUsers = (page = 1, limit = 10) => api.get(`/users?page=${page}&limit=${limit}`);
 export const getUserById = (id) => api.get(`/users/${id}`);

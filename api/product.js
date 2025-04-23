@@ -1,4 +1,4 @@
-import api from "./axiosInterceptor"
+import api from "../utils/middleware/axiosInterceptor"
 
 export const getAllProducts = () => api.get(`/products`)
 export const getPaginatedProducts = (page = 1, limit = 10) => api.get(`/products?page=${page}&limit=${limit}`)

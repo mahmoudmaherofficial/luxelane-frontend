@@ -49,11 +49,6 @@ const AuthForm = ({ fields, details }) => {
           'Sending request to register with data:',
           Object.fromEntries(formData)
         )
-        const password = formData.get('password')
-        const confirmPassword = formData.get('confirm_password')
-        if (password !== confirmPassword) {
-          throw new Error('Passwords do not match')
-        }
         res = await register(formData)
       } else if (details.api === 'login') {
         const formData = new FormData(e.target)

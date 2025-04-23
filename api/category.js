@@ -1,4 +1,4 @@
-import api from "./axiosInterceptor"
+import api from "../utils/middleware/axiosInterceptor"
 
 export const getAllCategories = () => api.get(`/categories`)
 export const getPaginatedCategories = (page = 1, limit = 10) => api.get(`/categories?page=${page}&limit=${limit}`)
