@@ -1,0 +1,87 @@
+├── api
+│   ├── account.js
+│   ├── auth.js
+│   ├── axiosInterceptor.js
+│   ├── category.js
+│   ├── product.js
+│   ├── urls.js
+│   └── user.js
+├── app
+│   ├── (auth)
+│   │   ├── login
+│   │   │   └── page.jsx
+│   │   └── register
+│   │       └── page.jsx
+│   ├── 403
+│   │   └── page.jsx
+│   ├── dashboard
+│   │   ├── categories
+│   │   │   ├── create
+│   │   │   │   └── page.jsx
+│   │   │   ├── page.jsx
+│   │   │   └── [categoryId]
+│   │   │       └── edit
+│   │   │           └── page.jsx
+│   │   ├── constants
+│   │   │   ├── navLinks.js
+│   │   │   └── protectedRoutes.js
+│   │   ├── layout.jsx
+│   │   ├── page.jsx
+│   │   ├── products
+│   │   │   ├── create
+│   │   │   │   └── page.jsx
+│   │   │   ├── loading.jsx
+│   │   │   ├── page.jsx
+│   │   │   └── [productId]
+│   │   │       └── edit
+│   │   │           └── page.jsx
+│   │   └── users
+│   │       ├── create
+│   │       │   └── page.jsx
+│   │       ├── page.jsx
+│   │       └── [userId]
+│   │           └── edit
+│   │               └── page.jsx
+│   ├── favicon.ico
+│   ├── layout.js
+│   ├── loading.jsx
+│   ├── not-found.jsx
+│   ├── page.jsx
+│   └── styles
+│       ├── dashboard
+│       │   └── dashboard.module.css
+│       ├── form.css
+│       └── globals.css
+├── components
+│   ├── AuthForm.jsx
+│   ├── Button.jsx
+│   ├── dashboard
+│   │   ├── ChartCard.jsx
+│   │   ├── DataTable.jsx
+│   │   ├── Navbar.jsx
+│   │   ├── Sidebar.jsx
+│   │   └── StatCard.jsx
+│   └── Loader.jsx
+├── context
+│   └── authContext.js
+├── FILE-TREE.txt
+├── jsconfig.json
+├── next-env.d.ts
+├── next.config.mjs
+├── package-lock.json
+├── package.json
+├── postcss.config.mjs
+├── public
+│   └── images
+│       ├── Artboard 1.png
+│       ├── Artboard 2.png
+│       ├── form-bg.avif
+│       ├── image-placeholder.png
+│       ├── logo-w.svg
+│       └── logo.svg
+├── README.md
+└── utils
+    ├── auth.js
+    ├── middleware
+    │   └── protectedRoute.js
+    └── toastUtils.js
