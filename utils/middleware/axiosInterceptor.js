@@ -37,6 +37,7 @@ api.interceptors.response.use(
           sameSite: 'strict',
           path: '/'
         });
+
         originalRequest.headers.Authorization = `Bearer ${accessToken}`;
         return api(originalRequest);
       } catch (refreshError) {
@@ -49,3 +50,4 @@ api.interceptors.response.use(
 );
 
 export default api;
+

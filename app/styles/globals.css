@@ -5,7 +5,11 @@
 }
 
 body {
-  @apply bg-slate-900 text-slate-100
+  @apply bg-gray-100 text-slate-900
+}
+
+.container{
+  @apply px-6
 }
 
 @layer utilities {

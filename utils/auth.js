@@ -1,12 +1,12 @@
 import { getAccount } from '@/api/account';
+import { useAuth } from '@/context/authContext';
 
 export const checkUser = async () => {
   try {
-    const user = await getAccount()
-    if (user) return window.location.replace('/')
+    const res = await getAccount()
+    if (res.data) return window.location.replace('/')
   } catch (err) {
-    if (err.response?.status === 401) return
-    console.error(err)
+    if (err.response?.status !== 401 || err.response?.status !== 404) console.error(err)
   }
 }
 

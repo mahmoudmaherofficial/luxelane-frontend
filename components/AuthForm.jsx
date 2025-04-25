@@ -42,16 +42,21 @@ const AuthForm = ({ fields, details }) => {
     try {
       setLoading(true)
 
+      const formData = new FormData(e.target)
+
+      // Send the username with lowercase
+      if (formData.get('username')) {
+        formData.set('username', formData.get('username').toLowerCase())
+      }
+
       let res
       if (details.api === 'register') {
-        const formData = new FormData(e.target)
         console.log(
           'Sending request to register with data:',
           Object.fromEntries(formData)
         )
         res = await register(formData)
       } else if (details.api === 'login') {
-        const formData = new FormData(e.target)
         const loginData = {
           email: formData.get('email'),
           password: formData.get('password'),
@@ -72,7 +77,7 @@ const AuthForm = ({ fields, details }) => {
 
         if (details.api === 'login') {
           showSuccessToast('Logged in successfully')
-          if ([1995, 1996].includes(res.data.user.role)) {
+          if (res.data.user.role === 1995 || res.data.user.role === 1996) {
             window.location.replace('/dashboard')
           } else {
             window.location.replace('/')
@@ -86,11 +91,9 @@ const AuthForm = ({ fields, details }) => {
       }
     } catch (err) {
       console.error('An error occurred in AuthForm:', err)
-      showErrorToast(
-        err.message ||
-          err.response?.data?.error ||
-          'An error occurred. Please try again later.'
-      )
+      const errorMessage =
+        err.response?.data?.error || err.message || 'An error occurred.'
+      showErrorToast(errorMessage)
     } finally {
       setLoading(false)
     }
@@ -120,7 +123,7 @@ const AuthForm = ({ fields, details }) => {
               />
               <label
                 htmlFor={field.name}
-                className="absolute left-3 -top-2.5 text-sky-500 bg-slate-50 px-1 py-0.5 text-xs transition-all duration-200 peer-placeholder-shown:text-sm peer-placeholder-shown:text-slate-400 peer-placeholder-shown:top-1.5 peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-sky-500 peer-focus:bg-slate-50 peer-focus:px-1 peer-focus:py-0.5 peer-invalid:border-red-500"
+                className="absolute left-3 -top-2.5 text-sky-500 bg-gray-50 px-1 py-0.5 text-xs transition-all duration-200 peer-placeholder-shown:text-sm peer-placeholder-shown:text-slate-400 peer-placeholder-shown:top-1.5 peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-sky-500 peer-focus:bg-gray-50 peer-focus:px-1 peer-focus:py-0.5 peer-invalid:border-red-500"
               >
                 {field.name
                   .replace('_', ' ')
@@ -132,7 +135,7 @@ const AuthForm = ({ fields, details }) => {
 
           <button
             type="submit"
-            className="bg-slate-900 hover:bg-slate-800 text-slate-100 rounded p-2 mt-auto"
+            className="bg-slate-900 hover:bg-slate-800 text-gray-100 rounded p-2 mt-auto"
           >
             {details.title.split(' ')[0]}
           </button>
@@ -161,3 +164,4 @@ const AuthForm = ({ fields, details }) => {
 }
 
 export default AuthForm
+

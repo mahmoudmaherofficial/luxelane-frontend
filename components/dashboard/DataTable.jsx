@@ -97,7 +97,7 @@ const DataTable = ({
 
       <div className="overflow-x-auto bg-white rounded-xl shadow-md">
         <table className="min-w-[600px] w-full divide-y divide-slate-200 text-sm text-slate-800">
-          <thead className="bg-slate-100">
+          <thead className="bg-gray-200">
             <tr>
               {columns.map((col) => (
                 <th
@@ -114,7 +114,7 @@ const DataTable = ({
               )}
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-200">
+          <tbody className="divide-y divide-gray-200">
             {filteredData.length === 0 ? (
               <tr>
                 <td
@@ -126,7 +126,7 @@ const DataTable = ({
               </tr>
             ) : (
               filteredData.map((row, index) => (
-                <tr key={index} className="hover:bg-slate-50 transition-colors">
+                <tr key={index} className="hover:bg-gray-50 transition-colors">
                   {columns.map((col) => (
                     <td key={col.key} className="px-4 py-3 whitespace-nowrap">
                       {col.render

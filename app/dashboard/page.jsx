@@ -11,12 +11,12 @@ export default function DashboardPage() {
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="p-4 bg-slate-100 rounded-xl shadow">
+        <div className="p-4 bg-gray-100 rounded-xl shadow">
           <h2 className="text-xl font-semibold mb-2">📊 Stats</h2>
           <p>View your latest analytics and reports.</p>
         </div>
 
-        <div className="p-4 bg-slate-100 rounded-xl shadow">
+        <div className="p-4 bg-gray-100 rounded-xl shadow">
           <h2 className="text-xl font-semibold mb-2">⚙️ Settings</h2>
           <p>Update your preferences and profile settings.</p>
         </div>

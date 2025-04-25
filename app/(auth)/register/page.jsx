@@ -1,9 +1,9 @@
-"use client"
+'use client'
 import React from 'react'
 import AuthForm from '@/components/AuthForm'
 import { checkUser } from '@/utils/auth'
 
-const RegisterPage = async () => {
+const RegisterPage = () => {
   checkUser()
   return (
     <main className="container">

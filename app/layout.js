@@ -13,7 +13,7 @@ const poppins = Poppins({
 
 export const metadata = {
   title: "Luxe Lane",
-  description: "clothing store",
+  description: "Online clothing store",
 };
 
 export default function RootLayout({ children }) {

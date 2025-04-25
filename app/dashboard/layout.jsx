@@ -23,7 +23,7 @@ const DashboardLayout = ({ children }) => {
       {/* Main content */}
       <div className="flex flex-col min-h-screen">
         <Navbar toggleSidebar={setIsSidebarOpen} />
-        <main className="p-4 flex-1 overflow-y-auto bg-slate-300">
+        <main className="p-4 flex-1 overflow-y-auto bg-gray-100">
           <ProtectedRoute>{children}</ProtectedRoute>
         </main>
       </div>
