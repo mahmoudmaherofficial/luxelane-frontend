@@ -73,7 +73,7 @@ const ProfilePage = () => {
               <div className="md:flex-shrink-0">
                 <img
                   className="h-80 md:h-48 w-full object-cover md:w-48 select-none"
-                  src={`${user.image ?BASE_URL + user.image : '/images/default-profile.jpg'}`}
+                  src={`${user.image ? BASE_URL + user.image : '/images/default-profile.jpg'}`}
                   alt={user?.username || 'Profile Image'}
                   loading="lazy"
                 />
@@ -93,7 +93,7 @@ const ProfilePage = () => {
           </div>
           <div className="flex justify-center mt-4 max-w-md gap-4 md:max-w-2xl mx-auto">
             <Button>
-              <Link href="/profile/update">Update Profile</Link>
+              <Link href="/profile/edit">Edit Profile</Link>
             </Button>
 
             <Button variant="danger" onClick={handleDeleteProfile}>

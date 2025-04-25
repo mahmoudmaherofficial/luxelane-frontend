@@ -15,9 +15,7 @@ api.interceptors.request.use(
     }
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
 api.interceptors.response.use(
@@ -27,21 +25,37 @@ api.interceptors.response.use(
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
       try {
-        const response = await axios.post(`${BASE_URL}/api/auth/refresh-token`, {}, {
-          withCredentials: true
-        });
+        console.log('Attempting to refresh token...');
+        const response = await axios.post(
+          `${BASE_URL}/api/auth/refresh-token`,
+          {},
+          { withCredentials: true }
+        );
         const { accessToken } = response.data;
+        if (!accessToken) {
+          throw new Error('No access token returned from refresh endpoint');
+        }
         Cookies.set('accessToken', accessToken, {
           expires: 1 / 96, // 15 minutes
           secure: process.env.NODE_ENV === 'production',
           sameSite: 'strict',
-          path: '/'
+          path: '/',
         });
 
         originalRequest.headers.Authorization = `Bearer ${accessToken}`;
         return api(originalRequest);
       } catch (refreshError) {
+        console.error('Refresh token error:', {
+          message: refreshError.message,
+          response: refreshError.response?.data,
+          status: refreshError.response?.status,
+          headers: refreshError.response?.headers,
+        });
         Cookies.remove('accessToken');
+        Cookies.remove('refreshToken');
+        if (typeof window !== 'undefined') {
+          window.dispatchEvent(new Event('auth:logout'));
+        }
         return Promise.reject(refreshError);
       }
     }
@@ -50,4 +64,3 @@ api.interceptors.response.use(
 );
 
 export default api;
-

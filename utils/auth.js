@@ -1,17 +1,24 @@
 import { getAccount } from '@/api/account';
-import { useAuth } from '@/context/authContext';
+import Cookies from 'js-cookie';
 
 export const checkUser = async () => {
   try {
-    const res = await getAccount()
-    if (res.data) return window.location.replace('/')
+    const res = await getAccount();
+    return res.data ? true : false;
   } catch (err) {
-    if (err.response?.status !== 401 || err.response?.status !== 404) console.error(err)
+    if (err.response?.status !== 401 && err.response?.status !== 404) {
+      console.error('Error checking user:', err.response?.data || err.message);
+    }
+    return false;
   }
-}
+};
 
-export async function logout() {
-  const cookieStore = await cookies();
-  cookieStore.delete('refreshToken');
-  cookieStore.delete('accessToken'); // Clear accessToken for consistency
-}
+export const logout = async () => {
+  try {
+    Cookies.remove('accessToken');
+    Cookies.remove('refreshToken');
+    window.dispatchEvent(new Event('auth:logout'));
+  } catch (err) {
+    console.error('Logout failed:', err);
+  }
+};
