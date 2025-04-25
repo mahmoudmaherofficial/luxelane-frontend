@@ -1,5 +1,5 @@
 'use client'
-import { deleteAccount, getAccount } from '@/api/account'
+import { deleteAccount } from '@/api/account'
 import { BASE_URL } from '@/api/urls'
 import Button from '@/components/Button'
 import Loader from '@/components/Loader'
@@ -93,11 +93,11 @@ const ProfilePage = () => {
           </div>
           <div className="flex justify-center mt-4 max-w-md gap-4 md:max-w-2xl mx-auto">
             <Button>
-              <Link href="/profile/update">Update</Link>
+              <Link href="/profile/update">Update Profile</Link>
             </Button>
 
             <Button variant="danger" onClick={handleDeleteProfile}>
-              Delete
+              Delete Account
             </Button>
           </div>
         </div>
