@@ -1,11 +1,11 @@
-import { Montserrat } from "next/font/google";
+import { Merriweather_Sans } from "next/font/google";
 import "./styles/globals.css";
 import "./styles/tailwind.css";
 import { ToastContainer } from "react-toastify";
 import { AccountProvider } from "@/context/AccountContext";
 import MainNavbarWrapper from "@/components/wrappers/MainNavbarWrapper";
 
-const montserrat = Montserrat({
+const merriweatherSans = Merriweather_Sans({
   variable: "--font-montserrat",
   subsets: ["latin"],
   display: "swap",
@@ -26,7 +26,7 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.7.2/css/all.css" />
       </head>
-      <body className={`${montserrat.className} overflow-x-hidden`}>
+      <body className={`${merriweatherSans.className} overflow-x-hidden`}>
         <AccountProvider>
           <MainNavbarWrapper>
             <main>
