@@ -1,0 +1,27 @@
+@media (min-width: 1024px) {
+  .auth-form-container {
+    background: linear-gradient(100deg, #fff 65%, #fff 65%, #0000 0), url('/images/form-bg.avif');
+    background-position: right;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+  }
+
+  form {
+    width: 60%;
+  }
+}
+
+input[name="username"] {
+  text-transform: lowercase;
+}
+
+
+form input:invalid:not(:placeholder-shown) {
+  border-color: crimson;
+  box-shadow: none;
+}
+
+form input:invalid:not(:placeholder-shown)+label {
+  color: crimson;
+}

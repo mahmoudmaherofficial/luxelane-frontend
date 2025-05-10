@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+/* Custom styles for react-slick carousel */
+.slick-dots {
+  bottom: -40px;
+}
+
+.slick-dots li {
+  margin: 0 6px;
+}
+
+.slick-dots li button:before {
+  font-size: 12px;
+  opacity: 0.2;
+  color: #2d85ca
+}
+
+.slick-dots li.slick-active button:before {
+  color: #2d85ca;
+  /* Purple for active dots */
+  opacity: 1;
+}
+
+.slick-prev,
+.slick-next {
+  width: 60px;
+  height: 40px;
+  /* Gold for arrows */
+  border-radius: 50%;
+  z-index: 10;
+}
+
+.slick-prev:hover,
+.slick-next:hover {
+  /* background: #C19A2E; */
+  /* Darker gold on hover */
+}
+
+.slick-prev:before,
+.slick-next:before {
+  font-size: 20px;
+  color: #2d85ca
+    /* Slate for arrow icons */
+}
+
+.slick-prev {
+  left: -50px;
+}
+
+.slick-next {
+  right: -50px;
+}
+
+@media (max-width: 640px) {
+  .slick-prev {
+    left: -20px;
+    width: 30px;
+  }
+
+  .slick-next {
+    right: -20px;
+    width: 30px;
+  }
+}
