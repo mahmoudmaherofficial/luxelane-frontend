@@ -80,6 +80,7 @@ const ProductsPage = () => {
     { key: "name", header: "Name" },
     { key: "description", header: "Description" },
     { key: "price", header: "Price" },
+    { key: "discount", header: "Discount" },
     { key: "stock", header: "Stock" },
     {
       key: "size",

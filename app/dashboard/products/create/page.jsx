@@ -14,6 +14,7 @@ const CreateProductPage = () => {
   const [formData, setFormData] = useState({
     name: "",
     price: "",
+    discount: "",
     description: "",
     stock: "",
     category: "",
@@ -170,6 +171,7 @@ const CreateProductPage = () => {
     const form = new FormData();
     form.append("name", formData.name);
     form.append("price", formData.price);
+    form.append("discount", formData.discount);
     form.append("description", formData.description || "");
     form.append("stock", formData.stock);
     form.append("category", formData.category);
@@ -262,6 +264,16 @@ const CreateProductPage = () => {
                 onChange={handleChange}
                 required
                 label="Price"
+                min={0}
+              />
+            </div>
+            <div>
+              <Input
+                type="number"
+                name="discount"
+                value={formData.discount}
+                onChange={handleChange}
+                label="discount"
                 min={0}
               />
             </div>

@@ -1,8 +1,7 @@
-
-import React from "react";
+import React from 'react';
 
 const Input = ({
-  type = "text",
+  type = 'text',
   name,
   value,
   onChange,
@@ -32,7 +31,8 @@ const Input = ({
       />
       <label
         htmlFor={name}
-        className="absolute select-none left-3 -top-2.5 capitalize text-primary-500 bg-white px-1 py-0.5 text-xs transition-all duration-200 peer-placeholder-shown:text-sm peer-placeholder-shown:text-slate-400 peer-placeholder-shown:top-1.5 peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-primary-500 peer-focus:bg-white peer-focus:px-1 peer-focus:py-0.5 peer-invalid:border-red-700">
+        className="absolute select-none left-3 -top-2.5 capitalize text-primary-500 bg-white px-1 py-0.5 text-xs transition-all duration-200 peer-placeholder-shown:text-sm peer-placeholder-shown:text-slate-400 peer-placeholder-shown:top-1.5 peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-primary-500 peer-focus:bg-white peer-focus:px-1 peer-focus:py-0.5 peer-invalid:border-red-700"
+      >
         {label}
       </label>
     </div>
