@@ -35,36 +35,36 @@ const ProductCard = ({ product }) => {
           loading="lazy"
         />
         <div className="p-6">
+          <div>
+            <h3 className="text-xl font-semibold text-primary-900 truncate max-w-60 md:max-w-max">
+              {product.name}
+            </h3>
+            <p className="text-gray-500 text-sm mb-2 truncate max-w-60 md:max-w-max">
+              {product.description}
+            </p>
+            <div className="flex items-center gap-2 mb-2">
+              {product.colors?.map((color, index) => (
+                <span
+                  key={index}
+                  className={`w-5 h-5 rounded-full border border-primary-200`}
+                  style={{ backgroundColor: color }}
+                ></span>
+              ))}
+            </div>
+          </div>
           <div className="flex items-end justify-between">
-            <div>
-              <h3 className="text-xl font-semibold text-primary-900 truncate">
-                {product.name}
-              </h3>
-              <p className="text-gray-500 text-sm mb-2 truncate">
-                {product.description}
+            <div className="flex items-center gap-2">
+              <p className="text-primary-500 font-semibold text-lg">
+                {product.discount > 0
+                  ? (product.price - product.discount).toFixed(1)
+                  : product.price?.toFixed(1)}{' '}
+                EGP
               </p>
-              <div className="flex items-center gap-2 mb-4">
-                {product.colors?.map((color, index) => (
-                  <span
-                    key={index}
-                    className={`w-5 h-5 rounded-full border border-primary-200`}
-                    style={{ backgroundColor: color }}
-                  ></span>
-                ))}
-              </div>
-              <div className="flex items-center gap-2">
-                <p className="text-primary-500 font-semibold text-lg">
-                  {product.discount > 0
-                    ? (product.price - product.discount).toFixed(1)
-                    : product.price?.toFixed(1)}{' '}
-                  EGP
+              {product.discount > 0 && (
+                <p className="text-sm text-gray-500 line-through">
+                  {product.price?.toFixed(1)} EGP
                 </p>
-                {product.discount > 0 && (
-                  <p className="text-sm text-gray-500 line-through">
-                    {product.price?.toFixed(1)} EGP
-                  </p>
-                )}
-              </div>
+              )}
             </div>
             <Button
               variant="primary"
@@ -76,9 +76,6 @@ const ProductCard = ({ product }) => {
               <FaCartPlus className="text-xl" />
             </Button>
           </div>
-          {/* <Link href={`/products/${product.id}`}>
-						<Button className="mt-4 w-full">Show Details</Button>
-					</Link> */}
         </div>
       </div>
     </Link>
