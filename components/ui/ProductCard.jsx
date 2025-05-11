@@ -47,7 +47,7 @@ const ProductCard = ({ product }) => {
                 {product.colors?.map((color, index) => (
                   <span
                     key={index}
-                    className={`w-6 h-6 rounded-full border border-primary-200`}
+                    className={`w-5 h-5 rounded-full border border-primary-200`}
                     style={{ backgroundColor: color }}
                   ></span>
                 ))}
