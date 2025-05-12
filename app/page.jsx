@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAccountContext } from '@/context/AccountContext';
 import Button from '@/components/ui/Button';
-import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Slider from 'react-slick';

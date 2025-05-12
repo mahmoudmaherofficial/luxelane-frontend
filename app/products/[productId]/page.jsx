@@ -1,13 +1,66 @@
 'use client';
 import React, { useEffect, useState, useRef } from 'react';
+import { getProductById } from '@/api/products';
+import Button from '@/components/ui/Button';
+import CartModal from '@/components/ui/CartModal';
+import { FaArrowLeft } from 'react-icons/fa6';
 import Image from 'next/image';
 import Link from 'next/link';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { getProductById } from '@/api/products';
-import Button from '@/components/ui/Button';
-import { FaArrowLeft } from 'react-icons/fa6';
+
+const ProductSkeleton = () => {
+  return (
+    <SkeletonTheme baseColor="#d1d5db" highlightColor="#e5e7eb">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 min-h-[calc(100vh-72px)]">
+        <Skeleton width={120} height={20} className="mb-4 sm:mb-6" />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
+          {/* Skeleton for Product Images */}
+          <div className="space-y-4">
+            <Skeleton
+              height={300}
+              className="sm:h-[400px] lg:h-[500px] rounded-lg"
+            />
+            <div className="mt-2 sm:mt-4 flex space-x-1">
+              {Array(4)
+                .fill()
+                .map((_, index) => (
+                  <Skeleton
+                    key={index}
+                    width={60}
+                    height={60}
+                    className="sm:w-[80px] sm:h-[80px] rounded-md"
+                  />
+                ))}
+            </div>
+          </div>
+          {/* Skeleton for Product Details */}
+          <div className="space-y-4 sm:space-y-6">
+            <Skeleton
+              width={300}
+              height={36}
+              className="sm:h-[48px] lg:h-[56px]"
+            />
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+              <Skeleton width={80} height={24} />
+              <Skeleton width={60} height={20} />
+              <Skeleton width={100} height={16} />
+            </div>
+            <Skeleton count={3} height={16} />
+            <Skeleton width={150} height={20} />
+            <Skeleton width={100} height={20} />
+            <Skeleton width={120} height={20} />
+            <Skeleton width={140} height={20} />
+            <Skeleton width={200} height={40} />
+          </div>
+        </div>
+      </div>
+    </SkeletonTheme>
+  );
+};
 
 const ProductPage = ({ params }) => {
   const { productId } = React.use(params);
@@ -16,6 +69,7 @@ const ProductPage = ({ params }) => {
   const [error, setError] = useState(null);
   const [nav1, setNav1] = useState(null);
   const [nav2, setNav2] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const slider1 = useRef(null);
   const slider2 = useRef(null);
 
@@ -37,13 +91,19 @@ const ProductPage = ({ params }) => {
       }
     };
 
+    console.log('Loading state:', loading); // Debug loading state
     fetchProduct();
   }, [productId]);
 
-  if (loading) {
-    return (
-      <div className="text-center py-10 text-tertiary-700">Loading...</div>
+  const handleAddToCart = ({ size, color, quantity }) => {
+    // Replace with your actual add-to-cart logic (e.g., API call)
+    console.log(
+      `Added to cart: ${product.name}, Size: ${size}, Color: ${color}, Quantity: ${quantity}`
     );
+  };
+
+  if (loading) {
+    return <ProductSkeleton key="skeleton" />;
   }
 
   if (error) {
@@ -158,7 +218,7 @@ const ProductPage = ({ params }) => {
                       className="relative w-full h-[300px] sm:h-[400px] lg:h-[500px]"
                     >
                       <Image
-                        src={image}
+                        src={image || '/images/product-placeholder.jpg'}
                         alt={`${product.name} ${index + 1}`}
                         fill
                         className="object-contain"
@@ -183,7 +243,7 @@ const ProductPage = ({ params }) => {
                           onClick={() => handleThumbnailClick(index)}
                         >
                           <Image
-                            src={image}
+                            src={image || '/images/product-placeholder.jpg'}
                             alt={`${product.name} thumbnail ${index + 1}`}
                             fill
                             className="object-cover rounded-md border border-secondary-200 hover:border-primary-400 transition-colors slick-current:border-primary-600 slick-current:bg-primary-50 shadow-sm"
@@ -246,16 +306,14 @@ const ProductPage = ({ params }) => {
               <div className="mt-2 flex items-center gap-2">
                 <span className="font-semibold text-black">Sizes:</span>
                 <div className="flex items-center gap-1">
-                  {product.size.map((size, index) => {
-                    return (
-                      <span
-                        key={index}
-                        className="bg-primary-200 text-primary-900 text-sm px-2 py-1 rounded-md"
-                      >
-                        {size}
-                      </span>
-                    );
-                  })}
+                  {product.size.map((size, index) => (
+                    <span
+                      key={index}
+                      className="bg-primary-200 text-primary-900 text-sm px-2 py-1 rounded-md"
+                    >
+                      {size}
+                    </span>
+                  ))}
                 </div>
               </div>
             )}
@@ -263,28 +321,34 @@ const ProductPage = ({ params }) => {
               <div className="flex items-center gap-2 mt-2">
                 <span className="font-semibold text-black">Colors:</span>
                 <div className="flex items-center gap-1">
-                  {product.colors.map((color, index) => {
-                    return (
-                      <span
-                        key={index}
-                        className={`w-5 h-5 rounded-full border border-primary-200 inline-block`}
-                        style={{ backgroundColor: color }}
-                      ></span>
-                    );
-                  })}
+                  {product.colors.map((color, index) => (
+                    <span
+                      key={index}
+                      className="w-5 h-5 rounded-full border border-primary-200 inline-block"
+                      style={{ backgroundColor: color }}
+                    ></span>
+                  ))}
                 </div>
               </div>
             )}
 
             <Button
-              className={'mr-auto w-full sm:w-1/3 mt-6 sm:mt-8'}
+              className="mr-auto w-full sm:w-1/3 mt-6 sm:mt-8"
               disabled={product.stock === 0}
+              onClick={() => setIsModalOpen(true)}
             >
               {product.stock > 0 ? 'Add to Cart' : 'Out of Stock'}
             </Button>
           </div>
         </div>
       </div>
+
+      <CartModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        product={product}
+        onAddToCart={handleAddToCart}
+      />
     </section>
   );
 };
