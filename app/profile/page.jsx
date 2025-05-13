@@ -65,7 +65,7 @@ const ProfilePage = () => {
             <div className="md:flex">
               <div className="md:flex-shrink-0">
                 <Image
-                  src={user?.image || "/images/default-profile.png"}
+                  src={user?.image || "/images/default-profile.jpg"}
                   alt={user?.username || `${process.env.NEXT_PUBLIC_SITE_NAME} User`}
                   width={200}
                   height={200}
