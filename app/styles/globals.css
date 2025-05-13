@@ -320,3 +320,19 @@
   transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
   transition-duration: 0.3s;
 }
+
+@layer components {
+  .hide-number-arrows {
+    @apply appearance-none;
+  }
+
+  .hide-number-arrows::-webkit-inner-spin-button,
+  .hide-number-arrows::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  .hide-number-arrows {
+    -moz-appearance: textfield;
+  }
+}

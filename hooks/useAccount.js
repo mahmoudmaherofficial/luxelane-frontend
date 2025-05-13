@@ -1,11 +1,10 @@
 "use client"
 import { getAccount } from '@/api/account'
-import { User } from '@/types'
 import { useEffect, useState } from 'react'
 
 const useAccount = () => {
 
-  const [user, setUser] = useState<User>()
+  const [user, setUser] = useState()
   const [loading, setLoading] = useState(false)
   useEffect(() => {
     const fetchAccount = async () => {

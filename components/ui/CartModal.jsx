@@ -1,7 +1,15 @@
-import { useState } from "react";
-import Button from "./Button";
-import { motion } from "framer-motion";
+'use client';
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import Button from '@/components/ui/Button';
 
+/**
+ * Modal for selecting product size, color, and quantity before adding to cart.
+ * @param {boolean} isOpen - Whether the modal is open.
+ * @param {Function} onClose - Callback to close the modal.
+ * @param {Object} product - Product data with size, colors, and stock.
+ * @param {Function} onAddToCart - Callback to handle add-to-cart action.
+ */
 const CartModal = ({ isOpen, onClose, product, onAddToCart }) => {
   const [selectedSize, setSelectedSize] = useState('');
   const [selectedColor, setSelectedColor] = useState('');
@@ -34,6 +42,12 @@ const CartModal = ({ isOpen, onClose, product, onAddToCart }) => {
     if (newQuantity >= 1 && newQuantity <= product.stock) {
       setSelectedQuantity(newQuantity);
     }
+  };
+
+  const handleQuantityInput = (event) => {
+    const value = event.target.value;
+    const inputQuantity = value ? Math.min(Math.max(parseInt(value, 10), 1), product.stock) : 1;
+    setSelectedQuantity(inputQuantity);
   };
 
   return (
@@ -97,19 +111,24 @@ const CartModal = ({ isOpen, onClose, product, onAddToCart }) => {
             <Button
               variant="outline-primary"
               size="sm"
-              className="w-8 h-8"
+              className={'w-8 h-8'}
               onClick={() => handleQuantityChange(-1)}
               disabled={selectedQuantity <= 1}
             >
               -
             </Button>
-            <span className="px-4 py-1 w-14 bg-primary-100 text-primary-900 rounded-full">
-              {selectedQuantity}
-            </span>
+            <input
+              type="number"
+              value={selectedQuantity}
+              onChange={(e) => handleQuantityInput(e)}
+              className="w-14 px-2 py-1 text-center bg-primary-100 text-primary-900 rounded-full hide-number-arrows"
+              min={1}
+              max={product.stock}
+            />
             <Button
               variant="outline-primary"
               size="sm"
-              className="w-8 h-8"
+              className={'w-8 h-8'}
               onClick={() => handleQuantityChange(1)}
               disabled={selectedQuantity >= product.stock}
             >
@@ -137,4 +156,5 @@ const CartModal = ({ isOpen, onClose, product, onAddToCart }) => {
     </div>
   );
 };
+
 export default CartModal;

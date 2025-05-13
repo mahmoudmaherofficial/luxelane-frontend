@@ -120,7 +120,7 @@ const ProductPage = ({ params }) => {
 
   const discountedPrice =
     product.discount > 0
-      ? (product.price * (1 - product.discount / 100)).toFixed(2)
+      ? (product.price - product.discount).toFixed(1)
       : product.price.toFixed(2);
 
   const mainSliderSettings = {
@@ -277,19 +277,20 @@ const ProductPage = ({ params }) => {
             <div className="flex flex-wrap items-center gap-1 sm:gap-2 mt-6 sm:mt-8">
               {product.discount > 0 ? (
                 <>
-                  <span className="text-2xl font-semibold text-primary-600">
+                  <span className="text-2xl font-semibold text-primary-500">
                     {discountedPrice} EGP
                   </span>
                   <span className="text-sm line-through text-gray-500">
-                    {product.price.toFixed(2)} EGP
+                    {product.price.toFixed(1)} EGP
                   </span>
                   <span className="text-base text-primary-900 ml-2">
-                    ({product.discount}% off)
+                    ({Math.round((product.discount / product.price) * 100)}%
+                    off)
                   </span>
                 </>
               ) : (
                 <span className="text-2xl font-semibold text-primary-600">
-                  {product.price.toFixed(2)} EGP
+                  {product.price.toFixed(1)} EGP
                 </span>
               )}
             </div>
@@ -354,3 +355,4 @@ const ProductPage = ({ params }) => {
 };
 
 export default ProductPage;
+
