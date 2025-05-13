@@ -96,6 +96,7 @@ import dashboardNavItems from './constants/DashboardNavLinks';
 export async function middleware(request) {
   const { pathname } = request.nextUrl;
   const cookies = request.cookies;
+  console.log(request);
   const accessToken = cookies.get('accessToken')?.value;
   const refreshToken = cookies.get('refreshToken')?.value;
   const response = NextResponse.next();
