@@ -35,6 +35,7 @@ export async function middleware(request) {
 
     if (!accessToken) {
       response.cookies.delete("refreshToken");
+      console.log("Redirecting to login from profile");
       return NextResponse.redirect(new URL("/login", request.url));
     }
 
