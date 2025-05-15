@@ -5,26 +5,28 @@ import dashboardNavItems from "./constants/DashboardNavLinks";
 
 export async function middleware(request) {
   const { pathname } = request.nextUrl;
-  const accessToken = request.cookies.get("accessToken")?.value;
-  const refreshToken = request.cookies.get("refreshToken")?.value;
+  // const accessToken = request.cookies.get("accessToken")?.value;
+  const accessToken = request.headers.get("authorization")?.split(" ")[1];
+  // const refreshToken = request.cookies.get("refreshToken")?.value;
+  console.log(Object.fromEntries(request.headers));
   const response = NextResponse.next();
 
   if (pathname.startsWith("/login") || pathname.startsWith("/register")) {
-    if (accessToken || refreshToken) {
+    if (accessToken) {
       return NextResponse.redirect(new URL("/", request.url));
     }
     return NextResponse.next();
   }
 
   if (pathname.startsWith("/logout")) {
-    if (!accessToken && !refreshToken) {
+    if (!accessToken) {
       return NextResponse.redirect(new URL("/", request.url));
     }
     return NextResponse.next();
   }
 
   if (pathname.startsWith("/profile")) {
-    if (!accessToken && refreshToken) {
+    if (!accessToken) {
       try {
         await refreshAccessToken();
       } catch (error) {
@@ -35,7 +37,6 @@ export async function middleware(request) {
 
     if (!accessToken) {
       response.cookies.delete("refreshToken");
-      console.log("Redirecting to login from profile");
       return NextResponse.redirect(new URL("/login", request.url));
     }
 
@@ -43,7 +44,7 @@ export async function middleware(request) {
   }
 
   if (pathname.startsWith("/dashboard")) {
-    if (!accessToken && refreshToken) {
+    if (!accessToken) {
       try {
         await refreshAccessToken();
       } catch (error) {
