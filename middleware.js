@@ -5,28 +5,26 @@ import dashboardNavItems from "./constants/DashboardNavLinks";
 
 export async function middleware(request) {
   const { pathname } = request.nextUrl;
-  // const accessToken = request.cookies.get("accessToken")?.value;
-  const accessToken = request.headers.get("authorization")?.split(" ")[1];
-  // const refreshToken = request.cookies.get("refreshToken")?.value;
-  console.log(Object.fromEntries(request.headers));
+  const accessToken = request.cookies.get("accessToken")?.value;
+  const refreshToken = request.cookies.get("refreshToken")?.value;
   const response = NextResponse.next();
 
   if (pathname.startsWith("/login") || pathname.startsWith("/register")) {
-    if (accessToken) {
+    if (accessToken || refreshToken) {
       return NextResponse.redirect(new URL("/", request.url));
     }
     return NextResponse.next();
   }
 
   if (pathname.startsWith("/logout")) {
-    if (!accessToken) {
+    if (!accessToken && !refreshToken) {
       return NextResponse.redirect(new URL("/", request.url));
     }
     return NextResponse.next();
   }
 
   if (pathname.startsWith("/profile")) {
-    if (!accessToken) {
+    if (!accessToken && refreshToken) {
       try {
         await refreshAccessToken();
       } catch (error) {
@@ -44,7 +42,7 @@ export async function middleware(request) {
   }
 
   if (pathname.startsWith("/dashboard")) {
-    if (!accessToken) {
+    if (!accessToken && refreshToken) {
       try {
         await refreshAccessToken();
       } catch (error) {
