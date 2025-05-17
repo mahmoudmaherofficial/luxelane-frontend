@@ -11,6 +11,8 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import api from '@/lib/axiosInterceptor';
+import Swal from 'sweetalert2';
 
 const ProductSkeleton = () => {
   return (
@@ -95,11 +97,37 @@ const ProductPage = ({ params }) => {
     fetchProduct();
   }, [productId]);
 
-  const handleAddToCart = ({ size, color, quantity }) => {
-    // Replace with your actual add-to-cart logic (e.g., API call)
-    console.log(
-      `Added to cart: ${product.name}, Size: ${size}, Color: ${color}, Quantity: ${quantity}`
-    );
+  const handleAddToCart = async ({ size, color, quantity }) => {
+    try {
+      await api.post('/cart/add', {
+        productId: product._id,
+        quantity,
+        size,
+        color,
+      });
+      Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: 'Item added to cart successfully!',
+        timer: 1500,
+        showConfirmButton: false,
+        customClass: {
+          popup: 'bg-primary-50 text-primary-900',
+        },
+      });
+    } catch (err) {
+      const message =
+        err.response?.data?.message || 'Failed to add item to cart';
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: message,
+        customClass: {
+          popup: 'bg-primary-50 text-primary-900',
+          confirmButton: 'bg-primary-600 text-white px-4 py-2 rounded',
+        },
+      });
+    }
   };
 
   if (loading) {
@@ -355,4 +383,3 @@ const ProductPage = ({ params }) => {
 };
 
 export default ProductPage;
-
