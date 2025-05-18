@@ -1,4 +1,5 @@
 'use client';
+
 import React, { useState } from 'react';
 import Input from '@/components/ui/Input';
 import Button from '@/components/ui/Button';
@@ -39,13 +40,13 @@ const AuthForm = ({ fields, type }) => {
     }
     if (field.pattern && !new RegExp(field.pattern).test(value)) {
       if (field.name === 'username') {
-        return 'Username must start with letter or _ , contain only letters, digits, or _ , and have no spaces';
+        return 'Username must start with a letter or underscore, contain only letters, digits, or underscores, and have no spaces';
       }
       if (field.name === 'email') {
-        return 'Email must be a valid address (e.g., user@example.com)';
+        return 'Please enter a valid email address (e.g., user@example.com)';
       }
       if (field.name === 'password' || field.name === 'confirmPassword') {
-        return "Password mustn't contain spaces";
+        return 'Password must not contain spaces';
       }
       return `Invalid ${field.label || field.name} format`;
     }
@@ -54,11 +55,13 @@ const AuthForm = ({ fields, type }) => {
 
   // Handle input change and validate in real-time
   const handleInputChange = (name, value) => {
-    setFormValues((prev) => ({ ...prev, [name]: value }));
+    const newValue =
+      name === 'username' || name === 'email' ? value.toLowerCase() : value;
+    setFormValues((prev) => ({ ...prev, [name]: newValue }));
 
     const field = fields.find((f) => f.name === name);
     if (field) {
-      const error = validateField(field, value);
+      const error = validateField(field, newValue);
       setErrors((prev) => ({ ...prev, [name]: error }));
     }
   };
@@ -103,11 +106,7 @@ const AuthForm = ({ fields, type }) => {
         toast.success('Account created successfully');
       } else if (type === 'login') {
         const data = Object.fromEntries(formData);
-        await axios.post(
-          `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
-          data,
-          { withCredentials: true }
-        );
+        await login(data);
         toast.success('Logged in successfully');
       }
       window.location.replace('/');
@@ -136,15 +135,11 @@ const AuthForm = ({ fields, type }) => {
                   accept={field.accept}
                   minLength={field.minLength}
                   label={field.label ? field.label : field.name}
+                  value={formValues[field.name] || ''} // Bind to formValues
                   className={
                     field.name === 'username' || field.name === 'email'
                       ? 'lowercase'
                       : ''
-                  }
-                  pattern={
-                    field.name === 'username'
-                      ? '^[a-z_][a-z0-9_]*$'
-                      : field.pattern
                   }
                   onChange={(e) =>
                     handleInputChange(field.name, e.target.value)
