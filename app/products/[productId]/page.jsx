@@ -292,9 +292,11 @@ const ProductPage = ({ params }) => {
           {/* Product Details */}
           <div className="flex flex-col gap-2">
             <div>
-              <span className="text-secondary-700">
-                In {product.category?.name || 'Unknown'}
-              </span>
+              <Link href={`/categories/${product.category?._id}`}>
+                <span className="text-secondary-700 hover:text-secondary-500 transition-colors">
+                  In {product.category?.name || 'Unknown'}
+                </span>
+              </Link>
             </div>
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-primary-900">
               {product.name}

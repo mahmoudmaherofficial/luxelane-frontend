@@ -162,6 +162,12 @@ const HomePage = () => {
               ))}
             </Slider>
           )}
+          <Link href={'/products'} className="flex justify-end">
+            <Button variant='outline-primary' className="mt-14 flex gap-2">
+              Explore more products
+              <ArrowRight />
+            </Button>
+          </Link>
         </div>
       </section>
 
@@ -187,7 +193,7 @@ const HomePage = () => {
               </motion.div>
             ))}
           </div>
-          <Link className="flex justify-end mt-6" href="/categories">
+          <Link className="flex justify-end mt-10" href="/categories">
             <Button variant="outline-primary" className={'flex gap-2'}>
               Explore more categories
               <ArrowRight />
