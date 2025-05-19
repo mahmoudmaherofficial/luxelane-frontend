@@ -323,7 +323,7 @@ const ProductPage = ({ params }) => {
               )}
             </div>
 
-            {product.stock < 5 && (
+            {product.stock < 5 && product.stock > 0 && (
               <div className="mt-2">
                 <span className="font-semibold text-black">Stock: </span>
                 <span className="text-red-600">

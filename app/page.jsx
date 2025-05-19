@@ -13,6 +13,8 @@ import ProductCard from '@/components/ui/ProductCard';
 import { getAllProducts } from '@/api/products';
 import CategoryLink from '@/components/ui/CategoryLink';
 import { getAllCategories } from '@/api/categories';
+import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 
 const HomePage = () => {
   const { user, loading } = useAccountContext();
@@ -49,7 +51,7 @@ const HomePage = () => {
   }, []);
 
   const handleShopNow = () => {
-    router.push('/shop');
+    router.push('/products');
   };
 
   const sliderSettings = {
@@ -174,7 +176,7 @@ const HomePage = () => {
             Shop Your Style
           </motion.h2>
           <div className="flex flex-wrap justify-center gap-8">
-            {categories.map((category) => (
+            {categories.slice(0, 6).map((category) => (
               <motion.div
                 key={category.name}
                 whileHover={{ scale: 1.1 }}
@@ -185,6 +187,12 @@ const HomePage = () => {
               </motion.div>
             ))}
           </div>
+          <Link className="flex justify-end mt-6" href="/categories">
+            <Button variant="outline-primary" className={'flex gap-2'}>
+              Explore more categories
+              <ArrowRight />
+            </Button>
+          </Link>
         </div>
       </section>
 

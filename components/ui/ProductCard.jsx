@@ -1,4 +1,5 @@
 'use client';
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
@@ -21,10 +22,16 @@ const ProductCard = ({ product }) => {
             </motion.div>
           )}
         </div>
-        {product.stock <= 5 && (
-          <div className="absolute top-4 right-4 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">
-            Only {product.stock} left
-          </div>
+        {/* Stock Badge */}
+        {product.stock === 0 && (
+          <span className="absolute top-4 right-4 bg-red-100 text-red-800 text-xs font-semibold px-2 py-1 rounded-full">
+            Out of Stock
+          </span>
+        )}
+        {product.stock > 0 && product.stock < 5 && (
+          <span className="absolute top-4 right-4 bg-yellow-100 text-yellow-800 text-xs font-semibold px-2 py-1 rounded-full">
+            Low Stock
+          </span>
         )}
         <Image
           src={product.images[0]}
