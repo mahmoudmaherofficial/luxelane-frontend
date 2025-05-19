@@ -6,6 +6,7 @@ import CartModal from '@/components/ui/CartModal';
 import { FaArrowLeft } from 'react-icons/fa6';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import Slider from 'react-slick';
@@ -13,6 +14,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import api from '@/lib/axiosInterceptor';
 import Swal from 'sweetalert2';
+import Cookies from 'js-cookie';
 
 const ProductSkeleton = () => {
   return (
@@ -74,6 +76,7 @@ const ProductPage = ({ params }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const slider1 = useRef(null);
   const slider2 = useRef(null);
+  const router = useRouter();
 
   useEffect(() => {
     setNav1(slider1.current);
@@ -98,6 +101,15 @@ const ProductPage = ({ params }) => {
   }, [productId]);
 
   const handleAddToCart = async ({ size, color, quantity }) => {
+    // Check if user is logged in by checking for token in localStorage
+    const token = Cookies.get('accessToken') || Cookies.get('refreshToken');
+    if (!token) {
+      // Redirect to login page with current URL as redirect query
+      const redirectUrl = `/products/${productId}`;
+      router.push(`/login?redirect=${encodeURIComponent(redirectUrl)}`);
+      return;
+    }
+
     try {
       await api.post('/cart/add', {
         productId: product._id,

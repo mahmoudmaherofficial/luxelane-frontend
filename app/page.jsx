@@ -163,7 +163,7 @@ const HomePage = () => {
             </Slider>
           )}
           <Link href={'/products'} className="flex justify-end">
-            <Button variant='outline-primary' className="mt-14 flex gap-2">
+            <Button variant="outline-primary" className="mt-14 flex gap-2">
               Explore more products
               <ArrowRight />
             </Button>
