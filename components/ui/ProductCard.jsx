@@ -73,7 +73,7 @@ const ProductCard = ({ product }) => {
                 </p>
               )}
             </div>
-            <Button
+            {/* <Button
               variant="primary"
               onClick={(e) => {
                 e.preventDefault();
@@ -81,7 +81,7 @@ const ProductCard = ({ product }) => {
               }}
             >
               <FaCartPlus className="text-xl" />
-            </Button>
+            </Button> */}
           </div>
         </div>
       </div>
