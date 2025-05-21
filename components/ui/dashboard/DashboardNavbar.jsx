@@ -145,13 +145,13 @@ export default function DashboardNavbar({
               >
                 Profile
               </Link>
-              <Link
+              {/* <Link
                 href="/settings"
                 className="block px-4 py-2 hover:bg-primary-800 hover:text-white transition-all duration-200 text-sm"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Settings
-              </Link>
+              </Link> */}
               <div className="border-t border-primary-800 mt-1 pt-1">
                 <Link
                   href="/logout"
