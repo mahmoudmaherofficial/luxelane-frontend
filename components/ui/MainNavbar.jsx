@@ -18,13 +18,13 @@ const MainNavbar = () => {
   const mobileMenuRef = useRef(null);
   const mobileButtonRef = useRef(null);
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      router.push(`/shop?search=${encodeURIComponent(searchQuery)}`);
-      setSearchQuery('');
-    }
-  };
+  // const handleSearch = (e) => {
+  //   e.preventDefault();
+  //   if (searchQuery.trim()) {
+  //     router.push(`/shop?search=${encodeURIComponent(searchQuery)}`);
+  //     setSearchQuery('');
+  //   }
+  // };
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -97,7 +97,7 @@ const MainNavbar = () => {
         </Link>
 
         {/* Search Bar */}
-        <form
+        {/* <form
           onSubmit={handleSearch}
           className="flex items-center w-full max-w-md mx-4 sm:mx-6 lg:mx-8"
         >
@@ -112,7 +112,7 @@ const MainNavbar = () => {
           <Button type="submit" className="rounded-l-none">
             Search
           </Button>
-        </form>
+        </form> */}
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center">

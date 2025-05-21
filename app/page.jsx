@@ -89,7 +89,7 @@ const HomePage = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
-        className="relative h-[calc(100vh-74px)] flex items-center select-none justify-center text-white"
+        className="relative h-[calc(100vh-64px)] flex items-center select-none justify-center text-white"
       >
         <Image
           src="/images/hero.webp"
